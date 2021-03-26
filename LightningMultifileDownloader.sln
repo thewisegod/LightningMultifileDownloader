@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightningMultifileDownloader", "LightningMultifileDownloader.csproj", "{DFFAC4AC-011A-4562-9F5E-6126528CF91E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFFAC4AC-011A-4562-9F5E-6126528CF91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFAC4AC-011A-4562-9F5E-6126528CF91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFAC4AC-011A-4562-9F5E-6126528CF91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFAC4AC-011A-4562-9F5E-6126528CF91E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF1655D5-80FA-44BD-A2BB-615F1A4D8C72}
+	EndGlobalSection
+EndGlobal
