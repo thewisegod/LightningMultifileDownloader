@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LightningMultifileDownloader
 {
-    public class Range
+    internal class Range
     {
-        public long Start { get; set; }
-        public long End { get; set; }
+        internal long Start { get; set; }
+        internal long End { get; set; }
     }
 }

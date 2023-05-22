@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace LightningMultifileDownloader
 {
-    public static class Downloader
+    internal static class Downloader
     {  
         static Downloader()
         {
@@ -20,31 +20,27 @@ namespace LightningMultifileDownloader
             ServicePointManager.MaxServicePointIdleTime = 1000;
         }
 
-        public static void Download(CheckBox chkSelect, string fileUrl, string saveFolder, Label lblFileSize, ProgressBar progressBar, Label lblSeconds, Dispatcher dispatcher, int concurrentDownloads = 0, bool validateSSL = false)
+        internal static void Download(CheckBox chkSelect, string fileUrl, string saveFolder, Label lblFileSize, ProgressBar progressBar, Label lblSeconds, Dispatcher dispatcher, int concurrentDownloads = 0, bool validateSSL = false)
         {
             if (!validateSSL) { ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; };
 
             var uri = new Uri(fileUrl);
-
-            //Calculate destination path   
+ 
             var savePath = Path.Combine(saveFolder, uri.Segments.Last());
-
-            //Handle number of parallel downloads  
-            if (concurrentDownloads <= 0)
-            {
-                concurrentDownloads = Environment.ProcessorCount;
-            }
 
             if (File.Exists(savePath))
             {
                 File.Delete(savePath);
             }
 
-            var progressPercentage = Math.Round((100d / concurrentDownloads), 1);
+            if (concurrentDownloads <= 0)
+            {
+                concurrentDownloads = Environment.ProcessorCount;
+            }
 
-            #region Get file size  
+            var progressPercentage = Math.Round((100d / concurrentDownloads), 1);
+ 
             var fileSize = GetFileSize(fileUrl);
-            #endregion
 
             if (fileSize > 0)
             {
@@ -62,13 +58,9 @@ namespace LightningMultifileDownloader
                 {
                     var tempFilesDictionary = new ConcurrentDictionary<long, string>();
 
-                    #region Calculate ranges  
                     var readRanges = BuildChunkRangeList(concurrentDownloads, fileSize);
-                    #endregion
 
                     var startTime = DateTime.Now;
-
-                    #region Parallel download  
 
                     Parallel.ForEach(readRanges, new ParallelOptions() { MaxDegreeOfParallelism = concurrentDownloads }, readRange =>
                     {
@@ -77,11 +69,7 @@ namespace LightningMultifileDownloader
                         dispatcher.Invoke(() => progressBar.Value += progressPercentage);
                     });
 
-                    #endregion
-
-                    #region Merge to single file  
                     CreateFile(destinationStream, tempFilesDictionary);
-                    #endregion
 
                     dispatcher.Invoke(() =>
                     {
@@ -119,7 +107,7 @@ namespace LightningMultifileDownloader
             return readRanges;
         }
 
-        private static void CreateTempFiles(string fileUrl, Range readRange, ConcurrentDictionary<long, string> tempFilesDictionary)
+        private static void CreateTempFiles(string fileUrl, Range readRange, ConcurrentDictionary<long, string> segmentDictionary)
         {
             var webRequestGet = HttpWebRequest.Create(fileUrl) as HttpWebRequest;
             webRequestGet.Method = "GET";
@@ -133,12 +121,12 @@ namespace LightningMultifileDownloader
                 {
                     webResponse.GetResponseStream().CopyTo(fileStream);
 
-                    tempFilesDictionary.TryAdd(readRange.Start, tempFilePath);
+                    segmentDictionary.TryAdd(readRange.Start, tempFilePath);
                 }
             }
         }
 
-        public static long GetFileSize(string fileUrl)
+        internal static long GetFileSize(string fileUrl)
         {
             var webRequestHead = HttpWebRequest.Create(fileUrl);
             webRequestHead.Method = "HEAD";

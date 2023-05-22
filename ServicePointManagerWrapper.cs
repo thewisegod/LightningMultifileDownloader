@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace LightningMultifileDownloader
 {
-    public class ServicePointManagerWrapper
+    internal class ServicePointManagerWrapper
     {
-        public ServicePointManagerWrapper(bool expect100Continue = false, int defaultConnectionLimit = 100, int maxServicePointIdleTime = 1000)
+        internal ServicePointManagerWrapper(bool expect100Continue = false, int defaultConnectionLimit = 100, int maxServicePointIdleTime = 1000)
         {
             ServicePointManager.Expect100Continue = expect100Continue;
             ServicePointManager.DefaultConnectionLimit = defaultConnectionLimit;

@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace LightningMultifileDownloader
 {
-    public static class Constants
+    internal static class Constants
     {
-        public const long BINARY_KBS_IN_MBS = 1024;
+        internal const long BINARY_KBS_IN_MBS = 1024;
 
-        public const int ROW_CONTROL_COUNT = 12;
+        internal const int ROW_CONTROL_COUNT = 12;
 
-        public const int CHECKBOX_INDEX = 0;
+        internal const int CHECKBOX_INDEX = 0;
 
-        public const int FILENAME_INDEX = 2;
+        internal const int FILENAME_INDEX = 2;
 
-        public const int FILESIZE_INDEX = 4;
+        internal const int FILESIZE_INDEX = 4;
 
-        public const int CONCURRENT_DOWNLOAD_INDEX = 6;
+        internal const int CONCURRENT_DOWNLOAD_INDEX = 6;
 
-        public const int PROGRESS_INDEX = 8;
+        internal const int PROGRESS_INDEX = 8;
 
-        public const int SECONDS_INDEX = 11;
+        internal const int SECONDS_INDEX = 11;
     }
 }

@@ -281,8 +281,8 @@ namespace LightningMultifileDownloader
             for(var rowIndex = 0; rowIndex < rows; rowIndex++)
             {
                 var chkSelect = FindGridControl<CheckBox>(Constants.CHECKBOX_INDEX, rowIndex);
-                if (chkSelect.IsChecked == true)
-                {
+                //if (chkSelect.IsChecked == true)
+                //{
                     var lblFileName = FindGridControl<Label>(Constants.FILENAME_INDEX, rowIndex);                 
                     var lblFileSize = FindGridControl<Label>(Constants.FILESIZE_INDEX, rowIndex);
                     var txtConcurrentDownloads = FindGridControl<TextBox>(Constants.CONCURRENT_DOWNLOAD_INDEX, rowIndex);
@@ -292,7 +292,7 @@ namespace LightningMultifileDownloader
                     int.TryParse(txtConcurrentDownloads.Text, out var concurrentDownloads);
 
                     DownloadFilesInBackground(chkSelect, lblFileName, lblFileSize, concurrentDownloads, pbDownload, lblSeconds);
-                }
+                //}
             }
         }
 
@@ -383,13 +383,16 @@ namespace LightningMultifileDownloader
 
         private void ToggleFileDownloadSelection(bool select)
         {
-            var rows = grdFiles.Children.Cast<UIElement>().Count() / Constants.ROW_CONTROL_COUNT;
-
-            for (var rowIndex = 0; rowIndex < rows; rowIndex++)
+            if (grdFiles != null)
             {
-                var chkSelect = FindGridControl<CheckBox>(Constants.CHECKBOX_INDEX, rowIndex);
+                var rows = grdFiles.Children.Cast<UIElement>().Count() / Constants.ROW_CONTROL_COUNT;
 
-                chkSelect.IsChecked = select;
+                for (var rowIndex = 0; rowIndex < rows; rowIndex++)
+                {
+                    var chkSelect = FindGridControl<CheckBox>(Constants.CHECKBOX_INDEX, rowIndex);
+
+                    chkSelect.IsChecked = select;
+                }
             }
         }
 
