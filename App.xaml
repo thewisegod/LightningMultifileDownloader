@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:LightningMultifileDownloader"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
     </Application.Resources>
 </Application>
