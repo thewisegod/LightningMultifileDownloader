@@ -99,9 +99,9 @@ namespace LightningMultifileDownloader
                 };
 
                 Grid.SetRow(chkSelect, _grdFileRowCount);
-                Grid.SetColumn(chkSelect, 0);
+                Grid.SetColumn(chkSelect, Constants.CHECKBOX_INDEX);
 
-                var seperator = CreateSeperator("sep1", _grdFileRowCount, 1);
+                var seperator = CreateSeperator("sep1", _grdFileRowCount, Constants.CHECKBOX_INDEX + 1);
 
                 grdFiles.Children.Add(chkSelect);
                 grdFiles.Children.Add(seperator);
@@ -123,9 +123,9 @@ namespace LightningMultifileDownloader
                 };
 
                 Grid.SetRow(lblFileName, _grdFileRowCount);
-                Grid.SetColumn(lblFileName, 2);
+                Grid.SetColumn(lblFileName, Constants.FILENAME_INDEX);
 
-                seperator = CreateSeperator("sep2", _grdFileRowCount, 3);
+                seperator = CreateSeperator("sep2", _grdFileRowCount, Constants.FILENAME_INDEX + 1);
 
                 grdFiles.Children.Add(lblFileName);
                 grdFiles.Children.Add(seperator);
@@ -142,9 +142,9 @@ namespace LightningMultifileDownloader
                 };
 
                 Grid.SetRow(lblFileSize, _grdFileRowCount);
-                Grid.SetColumn(lblFileSize, 4);
+                Grid.SetColumn(lblFileSize, Constants.FILESIZE_INDEX);
 
-                seperator = CreateSeperator("sep3", _grdFileRowCount, 5);
+                seperator = CreateSeperator("sep3", _grdFileRowCount, Constants.FILESIZE_INDEX + 1);
 
                 grdFiles.Children.Add(lblFileSize);
                 grdFiles.Children.Add(seperator);
@@ -177,9 +177,9 @@ namespace LightningMultifileDownloader
                 }), true);
 
                 Grid.SetRow(txtConcurrentDownloads, _grdFileRowCount);
-                Grid.SetColumn(txtConcurrentDownloads, 6);
+                Grid.SetColumn(txtConcurrentDownloads, Constants.CONCURRENT_DOWNLOAD_INDEX);
 
-                seperator = CreateSeperator("sep4", _grdFileRowCount, 7);
+                seperator = CreateSeperator("sep4", _grdFileRowCount, Constants.CONCURRENT_DOWNLOAD_INDEX + 1);
 
                 grdFiles.Children.Add(txtConcurrentDownloads);
                 grdFiles.Children.Add(seperator);
@@ -217,12 +217,12 @@ namespace LightningMultifileDownloader
                 });
 
                 Grid.SetRow(pbDownload, _grdFileRowCount);
-                Grid.SetColumn(pbDownload, 8);
+                Grid.SetColumn(pbDownload, Constants.PROGRESS_INDEX);
 
                 Grid.SetRow(tbProgress, _grdFileRowCount);
-                Grid.SetColumn(tbProgress, 8);
+                Grid.SetColumn(tbProgress, Constants.PROGRESS_INDEX);
 
-                seperator = CreateSeperator("sep5", _grdFileRowCount, 9);
+                seperator = CreateSeperator("sep5", _grdFileRowCount, Constants.PROGRESS_INDEX + 1);
 
                 grdFiles.Children.Add(pbDownload);
                 grdFiles.Children.Add(tbProgress);
@@ -241,7 +241,7 @@ namespace LightningMultifileDownloader
                 };
 
                 Grid.SetRow(lblSeconds, _grdFileRowCount);
-                Grid.SetColumn(lblSeconds, 10);
+                Grid.SetColumn(lblSeconds, Constants.PROGRESS_INDEX + 2);
 
                 grdFiles.Children.Add(lblSeconds);
 
@@ -266,13 +266,8 @@ namespace LightningMultifileDownloader
             return seperator;
         }
 
-        private void StackPanel_DragOver(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.StringFormat))
-                e.Effects = DragDropEffects.Copy;
-            else
-                e.Effects = DragDropEffects.None;
-        }
+        private void StackPanel_DragOver(object sender, DragEventArgs e) =>
+            e.Effects = e.Data.GetDataPresent(DataFormats.StringFormat) ?  DragDropEffects.Copy : DragDropEffects.None;
 
         private void ImgDownload_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -371,15 +366,9 @@ namespace LightningMultifileDownloader
             _grdFileRowCount--;
         }
 
-        private void ChkAllSelect_Checked(object sender, RoutedEventArgs e)
-        {
-            ToggleFileDownloadSelection(true);
-        }
+        private void ChkAllSelect_Checked(object sender, RoutedEventArgs e) => ToggleFileDownloadSelection(true);
 
-        private void ChkAllSelect_Unchecked(object sender, RoutedEventArgs e)
-        {
-            ToggleFileDownloadSelection(false);
-        }
+        private void ChkAllSelect_Unchecked(object sender, RoutedEventArgs e) => ToggleFileDownloadSelection(false);
 
         private void ToggleFileDownloadSelection(bool select)
         {
@@ -396,9 +385,6 @@ namespace LightningMultifileDownloader
             }
         }
 
-        private void ToggleSelectAll(bool allChecked)
-        {
-            chkAllSelect.IsChecked = allChecked;
-        }
+        private void ToggleSelectAll(bool allChecked) => chkAllSelect.IsChecked = allChecked;
     }
 }
